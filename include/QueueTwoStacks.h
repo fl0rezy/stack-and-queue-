@@ -8,10 +8,12 @@ class QueueTwoStacks {
 private:
 	Stack<T> push_stack;
 	Stack<T> pop_stack;
+	T last_pushed = T();
 
 public:
 
 	void push(const T& val) {
+		last_pushed = val;
 		push_stack.push(val);
 	}
 
@@ -37,6 +39,7 @@ public:
 	void clear() {
 		push_stack.clear();
 		pop_stack.clear();
+		last_pushed = T();
 	}
 
 	T front() {
@@ -53,13 +56,7 @@ public:
 		if (empty()) {
 			throw "Error";
 		}
-		if (push_stack.empty()) {
-			pop_to_push();
-		}
-		T val = push_stack.top();
-		push_to_pop();
-		return val;
-		
+		return last_pushed;
 	}
 
 private:

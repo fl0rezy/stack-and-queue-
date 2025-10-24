@@ -73,3 +73,20 @@ TEST(Stack, AnyThrow) {
 	EXPECT_ANY_THROW(s.top());
 	EXPECT_ANY_THROW(s.pop());
 }
+
+TEST(Stack, StressTest) {
+	Stack<int> s;
+	const int N = 1000000;
+
+	for (int i = 0; i < N; i++) {
+		s.push(i);
+		EXPECT_EQ(s.top(), i);
+	}
+
+	for (int i = N - 1; i >= 0; i--) {
+		EXPECT_EQ(s.top(), i);
+		s.pop();
+	}
+
+	EXPECT_TRUE(s.empty());
+}

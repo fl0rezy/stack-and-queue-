@@ -86,3 +86,22 @@ TEST(Queue, AfterEmpty) {
 	EXPECT_EQ(s.front(), 2);
 	EXPECT_EQ(s.back(), 2);
 }
+
+TEST(Queue, StressTest) {
+	Queue<int> q;
+	const int N = 1000000;
+
+	for (int i = 0; i < N; i++) {
+		q.push(i);
+		EXPECT_EQ(q.back(), i);
+		EXPECT_EQ(q.front(), 0);
+	}
+	EXPECT_EQ(q.back(), N - 1);
+	EXPECT_EQ(q.front(), 0);
+	for (int i = 0; i < N; i++) {
+		EXPECT_EQ(q.front(), i);
+		EXPECT_EQ(q.back(), N - 1);
+		q.pop();
+	}
+	EXPECT_TRUE(q.empty());
+}
